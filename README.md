@@ -4,6 +4,8 @@ Personal archive of Capoeira study notes: songs, toques, training, history, and 
 
 Material is in Portuguese, French, and English. It is a working notebook, not a textbook.
 
+**Roda Caderno** is the local companion app on top of this archive. It structures what is already in the repo. It does not invent songs, people, lyrics, or history.
+
 ## Contents
 
 ```
@@ -29,6 +31,36 @@ Notes cover:
 - **Grupo** — events, formatura, class notes
 
 Keep labels used in the export: `Canção`, `Aprender`, `Ladainha`, `Quadras`, `Acrobacias`, `Angola`, `Regional`, `Contemporanea`, `HistoriaDaCapoeira`, `Capoeira`.
+
+## Run Roda Caderno
+
+Requires Docker. The app binds `0.0.0.0:3847`.
+
+```bash
+cp .env.example .env
+docker compose up --build
+```
+
+Compose waits for Postgres, runs migrations, imports `./data`, then starts Next.js.
+
+Expected import counts (approximate):
+
+- 165 songs (Clean Master Index)
+- 70 Keep JSON notes
+- 319 spreadsheet rows
+- ~125–140 research/queue items
+- 1 docx
+
+Re-running `npm run import` skips duplicates.
+
+Manual steps if you already have Node:
+
+```bash
+docker compose up db -d
+npx prisma migrate deploy
+npm run import
+npm run dev
+```
 
 ## License
 

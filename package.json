@@ -1,0 +1,40 @@
+{
+  "name": "roda-caderno",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 0.0.0.0 --port 3847",
+    "build": "next build",
+    "start": "next start --hostname 0.0.0.0 --port 3847",
+    "lint": "eslint",
+    "test": "vitest run",
+    "import": "tsx scripts/import-archive.ts",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate deploy"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.16.2",
+    "clsx": "^2.1.1",
+    "fast-xml-parser": "^5.2.5",
+    "jszip": "^3.10.1",
+    "lucide-react": "^0.544.0",
+    "mammoth": "^1.10.0",
+    "next": "16.3.5",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "tailwind-merge": "^3.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.5",
+    "prisma": "^6.16.2",
+    "tailwindcss": "^4",
+    "tsx": "^4.20.5",
+    "typescript": "^5",
+    "vitest": "^3.2.4"
+  }
+}
