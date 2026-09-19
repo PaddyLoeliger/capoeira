@@ -25,3 +25,10 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+/.next/
+/out/
+/coverage
+*.tsbuildinfo
+next-env.d.ts
+npm-debug.log*
+.vercel
