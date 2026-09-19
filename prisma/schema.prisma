@@ -45,6 +45,7 @@ model Song {
   aliases            SongAlias[]
   citations          Citation[]
   researchItems      ResearchItem[]
+  keepLinks          KeepNoteLink[]
 }
 
 model SongVersion {
@@ -88,8 +89,23 @@ model RawKeepNote {
   listContent   Json?
   rawJson       Json
   contentHash   String
+  reviewStatus  String                 @default("pending")
+  reviewedAt    DateTime?
   candidates    ExtractionCandidate[]
+  songLinks     KeepNoteLink[]
   createdAt     DateTime               @default(now())
+}
+
+model KeepNoteLink {
+  id         String      @id @default(cuid())
+  keepNoteId String
+  keepNote   RawKeepNote @relation(fields: [keepNoteId], references: [id], onDelete: Cascade)
+  songId     String
+  song       Song        @relation(fields: [songId], references: [id], onDelete: Cascade)
+  via        String
+  createdAt  DateTime    @default(now())
+
+  @@unique([keepNoteId, songId])
 }
 
 model ExtractionCandidate {

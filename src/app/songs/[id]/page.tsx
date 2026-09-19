@@ -12,7 +12,13 @@ export default async function SongDetailPage({
   const { id } = await params;
   const song = await prisma.song.findUnique({
     where: { id },
-    include: { versions: true, aliases: true, citations: true, researchItems: true },
+    include: {
+      versions: true,
+      aliases: true,
+      citations: true,
+      researchItems: true,
+      keepLinks: { include: { keepNote: true } },
+    },
   });
   if (!song) notFound();
 
@@ -91,9 +97,28 @@ export default async function SongDetailPage({
         </section>
       ) : null}
 
+      {song.keepLinks.length > 0 ? (
+        <section>
+          <h2 className="mb-2 text-xl">Attached Keep notes</h2>
+          <ul className="space-y-3">
+            {song.keepLinks.map((link) => (
+              <li key={link.id} className="rounded-2xl bg-[var(--panel)] p-4">
+                <div className="font-medium">{link.keepNote.title || link.keepNote.fileName}</div>
+                <div className="text-xs text-[var(--muted)]">via {link.via.replace("_", " ")}</div>
+                {link.keepNote.textContent ? (
+                  <pre className="mt-2 max-h-48 overflow-auto whitespace-pre-wrap font-sans text-sm">
+                    {link.keepNote.textContent}
+                  </pre>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       {song.sourceKeepNotes ? (
         <section>
-          <h2 className="mb-2 text-xl">Source Keep notes</h2>
+          <h2 className="mb-2 text-xl">Source Keep notes (spreadsheet)</h2>
           <p className="text-sm">{song.sourceKeepNotes}</p>
         </section>
       ) : null}

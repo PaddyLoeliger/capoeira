@@ -24,6 +24,7 @@ const nav = [
   ["Practice", "/songs/practice"],
   ["Unidentified", "/songs/unidentified"],
   ["Search", "/search"],
+  ["Review", "/review"],
   ["Research", "/research"],
   ["People", "/people"],
   ["History", "/history"],

@@ -54,6 +54,8 @@ Citations/URLs attached to existing songs by exact title. No new songs.
 
 `data/Keep/*.json` → `RawKeepNote` + pending `ExtractionCandidate`. HTML twins are ignored.
 
+Manual review (`/review`) may attach a Keep note to an existing song only when the Keep title equals `Song.title` or a recorded `SongAlias.alias` (trim only). That creates `KeepNoteLink`. It does not create songs and does not copy Keep body text into `SongVersion`.
+
 ## Docx
 
 `Capoeira_Knowledge_Base.docx` → `ArchiveDocument` with extracted text for search/display, not as invented history records.

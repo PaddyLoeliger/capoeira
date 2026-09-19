@@ -4,21 +4,23 @@ import { prisma } from "@/lib/db";
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
-  const [songs, keepNotes, research, lyrics, unidentified, comfortable] = await Promise.all([
+  const [songs, keepNotes, pendingReview, research, lyrics, formUnknown, comfortable] = await Promise.all([
     prisma.song.count(),
     prisma.rawKeepNote.count(),
+    prisma.rawKeepNote.count({ where: { reviewStatus: "pending" } }),
     prisma.researchItem.count(),
     prisma.songVersion.count(),
-    prisma.researchItem.count({ where: { songId: null } }),
+    prisma.song.count({ where: { form: null } }),
     prisma.song.count({ where: { learningStatus: "COMFORTABLE" } }),
   ]);
 
   const cards = [
     ["Songs", songs, "/songs"],
     ["Keep notes", keepNotes, "/settings/import"],
+    ["Pending review", pendingReview, "/review"],
     ["Research items", research, "/research"],
     ["Lyric versions", lyrics, "/songs"],
-    ["Unidentified", unidentified, "/songs/unidentified"],
+    ["Form unknown", formUnknown, "/songs/unidentified"],
     ["Comfortable", comfortable, "/songs/practice"],
   ] as const;
 
